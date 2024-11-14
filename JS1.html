@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Bottoni con Funzioni Diverse</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            background-color: #3183cf;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>JS1 = 3 bottoni con funzioni diverse</h1>
+
+    <!-- Bottoni -->
+    <button onclick="funzione1()">Mostra un messaggio di benvenuto</button>
+    <button onclick="funzione2()">Cambia colore sfondo</button>
+    <button onclick="funzione3()">Calcola la somma di due numeri</button>
+
+    <script>
+        // Funzione 1: Mostra un messaggio di benvenuto
+        function funzione1() {
+            alert("Benvenuto nel MIO sito!");
+        }
+
+        // Funzione 2: Cambia il colore di sfondo della pagina
+        function funzione2() {
+            document.body.style.backgroundColor = "lightblue";
+        }
+
+        // Funzione 3: Calcola la somma di due numeri e mostra il risultato
+        function funzione3() {
+            let num1 = 2;
+            let num2 = 8;
+            let somma = num1 + num2;
+            alert("La somma di " + num1 + " e " + num2 + " è: " + somma);
+        }
+    </script>
+
+</body>
+</html>
+
