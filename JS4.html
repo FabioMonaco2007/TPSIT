@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="avvio()">
+    <div>
+        <p>Stiamo imparando a afare input con il prompt e con inputbox. Comprendo il funzionamento del onload sulla pagina. Quando carico la pagina corrente il primo che mi viene fired (accesso) è onload body.</p>
+    <label for="in1">valore 1</label>
+    <input id="in1" type="text">
+    <label for="in2">valore 2</label>
+    <input id="in2" type="text">
+    <button onclick="calcola()">Calcola</button>
+    </div>
+    <div>
+        <p id="out1"> Nome:</p>
+    </div>
+    <script>
+        function avvio()
+        {   let n=prompt("Inserisci il tuo nome");
+            document.getElementById("out1").innerHTML=n;
+
+        }
+function calcola(){
+    let a=document.getElementById("in1").value;
+    let b=document.getElementById("in2").value;
+    let ris = a*b
+    alert ("Il risultato è: " + ris)
+}
+    </script>
+</body>
+</html>
