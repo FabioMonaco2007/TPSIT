@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morra Cinese</title>
+</head>
+<style>
+    button {
+        background-color: #1E90FF; 
+        color: white; 
+        font-size: 16px; 
+        padding: 10px 20px; 
+        border-color: #1e31ff; 
+        border-radius: 7px; 
+        cursor: pointer; 
+        margin: 2px; 
+    }
+
+    button:hover {
+        background-color: #1e31ff; 
+    }
+</style>
+<body>
+    <h1>Morra Cinese: Gioca contro il Bot</h1>  
+    <p>CLICCA E SCEGLI LA TUA MOSSA:</p>
+    <button onclick="gioca('Carta')">Carta</button>
+    <button onclick="gioca('Sasso')">Sasso</button>
+    <button onclick="gioca('Forbice')">Forbice</button>
+
+    <h2>Risultato:</h2>
+    <p id="risultato"></p>
+
+    <p>La tua scelta: <span id="scelta-giocatore"></span></p>
+    <p>La scelta del Bot: <span id="scelta-bot"></span></p>
+
+    <script>
+        function sceltaBot() {
+            const scelte = ['Carta', 'Sasso', 'Forbice'];
+            const sceltaCasuale = scelte[Math.floor(Math.random() * 3)];
+            return sceltaCasuale;
+        }
+
+        function determinaVincitore(giocatore, bot) {
+            if (giocatore === bot) {
+                return "Pareggio!";
+            }
+            if (
+                (giocatore === 'Carta' && bot === 'Sasso') ||
+                (giocatore === 'Sasso' && bot === 'Forbice') ||
+                (giocatore === 'Forbice' && bot === 'Carta')
+            ) {
+                return "Hai vinto!";
+            } else {
+                
+                return "Il Bot ha vinto!";
+            }
+        }
+
+        function gioca(giocatore) {
+            const bot = sceltaBot();
+            const risultato = determinaVincitore(giocatore, bot);
+            
+            document.getElementById('scelta-giocatore').textContent = giocatore;
+            document.getElementById('scelta-bot').textContent = bot;
+            document.getElementById('risultato').textContent = risultato;
+        }
+    </script>
+</body>
+</html>
