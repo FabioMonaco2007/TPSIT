@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica Simulazione</title>
+</head>
+<body>
+    <h2>Numero Casuale tra 1 - 1000 ogni 5 secondi</h2>
+
+    <div>
+        <p id="out1"></p>
+        <p id="out2"></p>
+        <p id="out3"></p>
+    </div>
+
+<script>
+    function temporizzatore(){
+        setInterval(getNumber, 5000) 
+
+    }  
+    function getNumber(){
+    let numero_casuale = Math.floor(Math.random()*1000);
+    document.getElementById("out1").innerHTML = numero_casuale
+    if (numero_casuale % 2 == 0) {
+        document.getElementById("out2").innerHTML = "Il numero è pari";
+        }
+        else {
+            document.getElementById("out2").innerHTML = "Il numero è dispari";
+        }
+    if (IsPRIME(numero_casuale)) {
+        document.getElementById("out2").innerHTML += "<br>Il numero è primo";
+        }
+        else {
+            document.getElementById("out2").innerHTML += "<br>Il numero non è primo";
+        }
+    }
+    temporizzatore()
+
+    function IsPRIME(n) { 
+            if (n <= 1) return false; 
+            for (let i = 2; i * i <= n; i++) { 
+                if (n % i === 0) {
+                    return false; 
+                }
+            }
+            return true; 
+        }
+
+</script>
+
+</body>
+</html>
