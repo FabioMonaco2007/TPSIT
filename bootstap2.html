@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber-Security</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: white;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #000000;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        .nav-item .nav-link.active {
+            color: #090951;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .card {
+            margin-top: 20px;
+            min-height: 400px;
+            background-color: #090951;
+            color: white; 
+        }
+
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            color: white;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Cyber-Security</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Servizi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Informazioni</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contatti</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--CAROSELLO-->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="cyber_security1.png" class="d-block w-100" alt="Cyber Security 1">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Protezione dei Dati</h5>
+          <p>Proteggere i dati sensibili è essenziale per garantire la privacy degli utenti.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="cyber_security2.png" class="d-block w-100" alt="Cyber Security 2">
+        <div class="carousel-caption d-none d-md-block">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="cyber_security3.png" class="d-block w-100" alt="Cyber Security 3">
+        <div class="carousel-caption d-none d-md-block">
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Precedente</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Successivo</span>
+    </button>
+</div>
+  
+
+<!--CARD-->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="autenticazione-2fattori.png" class="card-img-top" alt="Card 1">
+                <div class="card-body">
+                    <h5 class="card-title">Autenticazione a Due Fattori:</h5>
+                    <p class="card-text"><b>L'autenticazione a due fattori</b> è un sistema di sicurezza che richiede due prove per verificare l'identità dell'utente. <strong>Il primo fattore</strong> è qualcosa che l'utente conosce, come una password, mentre <b>il secondo fattore</b> è qualcosa che l'utente possiede, come un codice temporaneo ricevuto via SMS.<br>Le modalità più comuni di 2FA includono:
+                    <ul>
+                        <li><b>Codici temporanei</b>, ricevuti via SMS o tramite applicazione.</li>
+                        <li><b>Autenticazione biometrica</b>, come impronta digitale o riconoscimento facciale.</li>
+                    </ul>
+                    Questo aumenta la protezione degli account, riducendo il rischio di accessi non autorizzati</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="crittografia.png" class="card-img-top" alt="Card 2">
+                <div class="card-body">
+                    <h5 class="card-title">Crittografia dei Dati:</h5>
+                    <p class="card-text"><b>La crittografia</b> è un processo che trasforma i dati in un formato incomprensibile per chi non possiede una chiave per decifrarli. Viene utilizzata per proteggere le informazioni sensibili durante la trasmissione o per conservarle in modo sicuro. <br>I metodi più comuni di crittografia sono:
+                    <ul>
+                        <li><b>Crittografia simmetrica</b>, dove la stessa chiave è usata per cifrare e decifrare.</li>
+                        <li><b>Crittografia asimmetrica</b>, che utilizza due chiavi diverse, una pubblica per cifrare e una privata per decifrare.</li>
+                    </ul>
+                    <b>La crittografia</b> è essenziale per garantire la privacy e la sicurezza dei dati online.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="firewall.png" class="card-img-top" alt="Card 3">
+                <div class="card-body">
+                    <h5 class="card-title">Firewall e Sicurezza Rete:</h5>
+                    <p class="card-text"><b>Un firewall</b> è un sistema di sicurezza che controlla il traffico in entrata e in uscita di una rete, permettendo o bloccando determinati flussi di dati. Viene utilizzato per proteggere i dispositivi e le reti da accessi non autorizzati, attacchi esterni o malware. <br>I firewall possono essere:
+                    <ul>
+                        <li><b>Hardware</b>, dispositivi fisici progettati per proteggere la rete.</li>
+                        <li><b>Software</b>, programmi installati su un computer o un server per monitorare e filtrare il traffico di rete.</li>
+                    </ul>
+                    <b>I firewall</b> sono fondamentali per difendere le reti aziendali e domestiche.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
