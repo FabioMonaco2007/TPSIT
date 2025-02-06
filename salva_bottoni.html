@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bottoni e Tempo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bottoni e Tempo</h1>
+    
+    <!-- 4 bottoni -->
+    <button id="button1">Bottone 1</button>
+    <button id="button2">Bottone 2</button>
+    <button id="button3">Bottone 3</button>
+    <button id="button4">Bottone 4</button>
+
+    <!-- Area dove verranno mostrati data e ora -->
+    <div id="output">
+        <p id="time"></p>
+        <p id="timeDifferences"></p>
+    </div>
+
+    <script>
+        // Array per memorizzare i tempi tra i click
+        let times = [];
+        let firstClickTime = null;
+
+        // Funzione per stampare la data e ora corrente
+        function printTime() {
+            const now = new Date();
+            document.getElementById('time').textContent = "Data e ora corrente: " + now.toLocaleString();
+        }
+
+        // Funzione per memorizzare i tempi tra i click
+        function trackTime() {
+            const currentTime = Date.now();
+
+            if (firstClickTime === null) {
+                // Primo click
+                firstClickTime = currentTime;
+                times.push(0); // La prima differenza è 0
+            } else {
+                // Calcolare la differenza in millisecondi
+                let timeDifference = currentTime - firstClickTime;
+                let seconds = (timeDifference / 1000).toFixed(3); // Secondi con millesimi
+                times.push(seconds);
+
+                // Aggiornare l'output con i tempi
+                document.getElementById('timeDifferences').textContent = "Tempi tra i click (in secondi): " + times.join(', ');
+            }
+        }
+
+        // Eventi per i bottoni
+        document.getElementById('button1').addEventListener('click', function() {
+            printTime();
+            trackTime();
+        });
+
+        document.getElementById('button2').addEventListener('click', function() {
+            printTime();
+            trackTime();
+        });
+
+        document.getElementById('button3').addEventListener('click', function() {
+            printTime();
+            trackTime();
+        });
+
+        document.getElementById('button4').addEventListener('click', function() {
+            printTime();
+            trackTime();
+        });
+    </script>
+</body>
+</html>
