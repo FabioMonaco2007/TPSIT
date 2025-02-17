@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Griglie - Bootstrap</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      flex-direction: column;
+    }
+    .griglia {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 50px; 
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+    .griglia-3x3 {
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+    }
+    .quadrato {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      color: white;
+    }
+    .quadrato:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #frase {
+        margin-top: 20px;
+        font-size: 20px;
+        color: black;
+    }
+
+    .colore1 { background-color: red; }
+    .colore2 { background-color: orange; }
+    .colore3 { background-color: yellow; }
+    .colore4 { background-color: yellowgreen; }
+    .colore5 { background-color: green; }
+    .colore6 { background-color: teal; }
+    .colore7 { background-color: dodgerblue; }
+    .colore8 { background-color: blue; }
+    .colore9 { background-color: blueviolet; }
+  </style>
+</head>
+<body>
+
+  <!-- Griglia 3x3 -->
+  <div class="griglia griglia-3x3">
+    <div class="quadrato colore1" onclick="mostrafrase('Hai cliccato il Quadrato ROSSO!')"></div>
+    <div class="quadrato colore2" onclick="mostrafrase('Hai cliccato il Quadrato ARANCIONE!')"></div>
+    <div class="quadrato colore3" onclick="mostrafrase('Hai cliccato il Quadrato GIALLO!')"></div>
+    <div class="quadrato colore4" onclick="mostrafrase('Hai cliccato il Quadrato GIALLO-VERDE!')"></div>
+    <div class="quadrato colore5" onclick="mostrafrase('Hai cliccato il Quadrato VERDE!')"></div>
+    <div class="quadrato colore6" onclick="mostrafrase('Hai cliccato il Quadrato VERDE SCURO!')"></div>
+    <div class="quadrato colore7" onclick="mostrafrase('Hai cliccato il Quadrato AZZURRO!')"></div>
+    <div class="quadrato colore8" onclick="mostrafrase('Hai cliccato il Quadrato BLU!')"></div>
+    <div class="quadrato colore9" onclick="mostrafrase('Hai cliccato il Quadrato VIOLA!')"></div>
+  </div>
+
+  <div id="frase"></div>
+
+  <script>
+
+    function mostrafrase(frase) {
+        document.getElementById("frase").innerHTML = frase;
+    }
+  </script>
+</body>
+</html>
