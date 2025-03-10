@@ -76,10 +76,11 @@
 
             // Ottieni i valori dei campi del modulo
             const nome = document.getElementById('nome').value;
+            const cognome = document.getElementById('cognome').value;
             const email = document.getElementById('email').value;
 
             // Crea una stringa con i dati da visualizzare
-            const dati = `<strong>Nome:</strong> ${nome} <br> <strong>Email:</strong> ${email}`;
+            const dati = `<strong>Nome:</strong> ${nome} <br> <strong>Cognome:</strong> ${cognome} <strong>Email:</strong> ${mail} <br>`;
 
             // Visualizza i dati nella div con id 'risultato'
             const risultatoDiv = document.getElementById('risultato');
