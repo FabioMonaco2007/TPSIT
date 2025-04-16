@@ -1,5 +1,4 @@
 <!doctype html>
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -13,7 +12,6 @@
         box-sizing: border-box;
       }
 
-      /* Corpo della pagina con sfondo gradiente che copre tutta la pagina */
       body {
         font-family: 'Poppins', sans-serif;
         background: linear-gradient(135deg, #ffbb54, #ffb23e); 
@@ -22,60 +20,66 @@
         min-height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: center;
-        padding: 20px;
+        align-items: flex-start;
+        padding: 40px 20px;
       }
 
-      /* Container principale */
       .container {
-        max-width: 900px;
+        max-width: 1000px;
+        width: 100%;
         text-align: center;
         background-color: rgba(255, 255, 255, 0.1); 
         padding: 30px;
-        border-radius: 10px;
+        border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
       }
 
-      /* Titolo principale */
       h1 {
         font-size: 3rem;
         color: #fff;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
       }
 
-      /* Paragrafo introduttivo */
       p.lead {
         font-size: 1.2rem;
-        color: #ffffff;
         margin-bottom: 40px;
       }
 
-      /* Lista degli esercizi */
-      ul {
-        list-style-type: none;
-        padding-left: 0;
-      }
-
-      li {
-        margin: 15px 0;
-      }
-
-      /* Link senza contenitori aggiuntivi */
-      a {
-        text-decoration: none;
-        font-size: 1.1rem;
+      h2 {
+        font-size: 1.8rem;
+        margin-top: 30px;
+        margin-bottom: 20px;
         color: #fff;
-        transition: color 0.3s ease, transform 0.2s ease;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 10px;
+        display: inline-block;
       }
 
-      /* Colore dei link al passaggio del mouse */
-      a:hover {
-        color: #ff8119; 
+      .exercise-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .exercise-grid a {
+        text-decoration: none;
+        font-size: 1.05rem;
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 12px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: block;
+      }
+
+      .exercise-grid a:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        color: #ff7300; 
         transform: translateY(-3px); 
       }
 
-      /* Effetto di click sui link */
-      a:active {
+      .exercise-grid a:active {
         transform: translateY(0);
       }
     </style>
@@ -83,24 +87,38 @@
   <body>
     <div class="container">
       <h1>Esercizi JavaScript</h1>
-      <p class="lead">Scegli un esercizio inerente a JavaScript.</p>
-      <ul>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/JS1.html">Esercizio 1: JS1</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/JS2.html">Esercizio 2: JS2</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/JS3.html">Esercizio 3: JS3</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/JS4.html">Esercizio 4: JS4</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/JS5.html">Esercizio 5: JS5</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/JS6.html">Esercizio 6: JS6</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/array1.html">Esercizio 7: Array1</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/array2.html">Esercizio 8: Array2</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/array3.html">Esercizio 9: Array3</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/morra_bot.html">Esercizio 10: Morra Cinese</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/analisi_numerica.html">Esercizio 11: Analisi Numerica</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/form_BS5.html">Esercizio 12: Form1</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/form2_BS5.html">Esercizio 13: Form2</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/form3_BS5.html">Esercizio 14: Form3</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/generatore_numeri_casuali.html">Esercizio 15: Generatore Numeri Casuali + Media</a></li>
-      </ul>
+      <p class="lead">Scegli una delle seguenti categorie per esercitarti con JavaScript:</p>
+
+      <h2>Esercizi Base</h2>
+      <div class="exercise-grid">
+        <a href="https://fabiomonaco2007.github.io/TPSIT/JS1.html">Esercizio 1: JS1</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/JS2.html">Esercizio 2: JS2</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/JS3.html">Esercizio 3: JS3</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/JS4.html">Esercizio 4: JS4</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/JS5.html">Esercizio 5: JS5</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/JS6.html">Esercizio 6: JS6</a>
+      </div>
+
+      <h2>Array</h2>
+      <div class="exercise-grid">
+        <a href="https://fabiomonaco2007.github.io/TPSIT/array1.html">Esercizio 7: Array1</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/array2.html">Esercizio 8: Array2</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/array3.html">Esercizio 9: Array3</a>
+      </div>
+
+      <h2>Giochi & Logica</h2>
+      <div class="exercise-grid">
+        <a href="https://fabiomonaco2007.github.io/TPSIT/morra_bot.html">Esercizio 10: Morra Cinese</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/analisi_numerica.html">Esercizio 11: Analisi Numerica</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/generatore_numeri_casuali.html">Esercizio 15: Generatore Numeri Casuali + Media</a>
+      </div>
+
+      <h2>Form</h2>
+      <div class="exercise-grid">
+        <a href="https://fabiomonaco2007.github.io/TPSIT/form_BS5.html">Esercizio 12: Form1</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/form2_BS5.html">Esercizio 13: Form2</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/form3_BS5.html">Esercizio 14: Form3</a>
+      </div>
     </div>
   </body>
 </html>
