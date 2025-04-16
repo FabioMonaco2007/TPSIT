@@ -12,7 +12,6 @@
         box-sizing: border-box;
       }
 
-      /* Corpo della pagina con sfondo gradiente che copre tutta la pagina */
       body {
         font-family: 'Poppins', sans-serif;
         background: linear-gradient(135deg, #6a11cb, #2575fc); 
@@ -21,60 +20,66 @@
         min-height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: center;
-        padding: 20px;
+        align-items: flex-start;
+        padding: 40px 20px;
       }
 
-      /* Container principale */
       .container {
-        max-width: 900px;
+        max-width: 1000px;
+        width: 100%;
         text-align: center;
         background-color: rgba(255, 255, 255, 0.1); 
         padding: 30px;
-        border-radius: 10px;
+        border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
       }
 
-      /* Titolo principale */
       h1 {
         font-size: 3rem;
         color: #fff;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
       }
 
-      /* Paragrafo introduttivo */
       p.lead {
         font-size: 1.2rem;
-        color: #ffffff;
         margin-bottom: 40px;
       }
 
-      /* Lista degli esercizi */
-      ul {
-        list-style-type: none;
-        padding-left: 0;
-      }
-
-      li {
-        margin: 15px 0;
-      }
-
-      /* Link senza contenitori aggiuntivi */
-      a {
-        text-decoration: none;
-        font-size: 1.1rem;
+      h2 {
+        font-size: 1.8rem;
+        margin-top: 30px;
+        margin-bottom: 20px;
         color: #fff;
-        transition: color 0.3s ease, transform 0.2s ease;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 10px;
+        display: inline-block;
       }
 
-      /* Colore dei link al passaggio del mouse */
-      a:hover {
-        color: #b563fc; 
+      .exercise-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .exercise-grid a {
+        text-decoration: none;
+        font-size: 1.05rem;
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 12px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: block;
+      }
+
+      .exercise-grid a:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        color: #8800ff; 
         transform: translateY(-3px); 
       }
 
-      /* Effetto di click sui link */
-      a:active {
+      .exercise-grid a:active {
         transform: translateY(0);
       }
     </style>
@@ -83,17 +88,18 @@
     <div class="container">
       <h1>Esercizi Bootstrap</h1>
       <p class="lead">Scegli un esercizio per cominciare a imparare Bootstrap.</p>
-      <ul>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/bootstrap_sushi.html">Esercizio 1: Fullstack Sushi</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/lego_bootstrap.html">Esercizio 2: LEGO World</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/bootstrap2.html">Esercizio 3: Cyber-Security</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/bootstrap3.html">Esercizio 4: Curiosità sul Calcio</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/salva_bottoni.html">Esercizio 5: Salva Bottoni</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/griglie.html">Esercizio 6: Griglie 1</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/griglie2.html">Esercizio 7: Griglie 2</a></li>
-        <li><a href="https://fabiomonaco2007.github.io/TPSIT/game_memory.html">Esercizio 8: Game Memory Color</a></li>
-      </ul>
+
+      <h2>Progetti Bootstrap</h2>
+      <div class="exercise-grid">
+        <a href="https://fabiomonaco2007.github.io/TPSIT/bootstrap_sushi.html">Esercizio 1: Fullstack Sushi</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/lego_bootstrap.html">Esercizio 2: LEGO World</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/bootstrap2.html">Esercizio 3: Cyber-Security</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/bootstrap3.html">Esercizio 4: Curiosità sul Calcio</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/salva_bottoni.html">Esercizio 5: Salva Bottoni</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/griglie.html">Esercizio 6: Griglie 1</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/griglie2.html">Esercizio 7: Griglie 2</a>
+        <a href="https://fabiomonaco2007.github.io/TPSIT/game_memory.html">Esercizio 8: Game Memory Color</a>
+      </div>
     </div>
   </body>
 </html>
-
