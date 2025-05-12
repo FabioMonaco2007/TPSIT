@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>F1 - Reaction Time Game</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .lights {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .light {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #330000;
+      box-shadow: 0 0 5px #000;
+      transition: background-color 0.2s, box-shadow 0.2s;
+    }
+
+    .light.on {
+      background-color: red;
+      box-shadow: 0 0 20px red;
+    }
+
+    #timer {
+      font-size: 64px;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 24px;
+      color: yellow;
+    }
+
+    #start {
+      position: absolute;
+      bottom: 40px;
+      padding: 12px 24px;
+      font-size: 20px;
+      background: #222;
+      color: white;
+      border: 1px solid white;
+      cursor: pointer;
+    }
+
+    #user-info {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 18px;
+      text-align: right;
+      max-width: 300px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div id="user-info"></div>
+
+  <div class="lights">
+    <div class="light" id="l1"></div>
+    <div class="light" id="l2"></div>
+    <div class="light" id="l3"></div>
+    <div class="light" id="l4"></div>
+    <div class="light" id="l5"></div>
+  </div>
+
+  <div id="timer">00.000</div>
+  <div id="message">Clicca "START" per iniziare</div>
+  <button id="start">START</button>
+
+  <script>
+    const lights = [
+      document.getElementById('l1'),
+      document.getElementById('l2'),
+      document.getElementById('l3'),
+      document.getElementById('l4'),
+      document.getElementById('l5')
+    ];
+    const timerDisplay = document.getElementById('timer');
+    const message = document.getElementById('message');
+    const startButton = document.getElementById('start');
+    const userInfo = document.getElementById('user-info');
+
+    let userName = '';
+    let currentTimes = [];
+    let reactionStart = 0;
+    let timerInterval = null;
+    let gameStarted = false;
+    let clicked = false;
+
+    const players = [];
+
+    function askUserName() {
+      userName = prompt("Inserisci il tuo nome:");
+      currentTimes = [];
+      updateUserList();
+    }
+
+    function resetLights() {
+      lights.forEach(light => light.classList.remove('on'));
+    }
+
+    function formatTime(ms) {
+      return (ms / 1000).toFixed(3).padStart(6, '0');
+    }
+
+    function updateTimer() {
+      const now = performance.now();
+      const elapsed = now - reactionStart;
+      timerDisplay.textContent = formatTime(elapsed);
+    }
+
+    function updateUserList() {
+      let html = '';
+      players.forEach(player => {
+        const bestTime = Math.min(...player.times);
+        const timesHTML = player.times.map(t =>
+          `<span style="font-weight:${t === bestTime ? 'bold' : 'normal'}">${formatTime(t)}</span>`
+        ).join(' | ');
+        html += `<div>${player.name} - ${timesHTML}</div>`;
+      });
+
+      if (userName && currentTimes.length > 0) {
+        const bestCurrent = Math.min(...currentTimes);
+        const currentHTML = currentTimes.map(t =>
+          `<span style="font-weight:${t === bestCurrent ? 'bold' : 'normal'}">${formatTime(t)}</span>`
+        ).join(' | ');
+        html += `<div>${userName} - ${currentHTML}</div>`;
+      }
+
+      userInfo.innerHTML = html;
+    }
+
+    function startGame() {
+      if (!userName) {
+        askUserName();
+      }
+
+      resetLights();
+      timerDisplay.textContent = "00.000";
+      message.textContent = "Preparati...";
+      clicked = false;
+      gameStarted = false;
+      startButton.disabled = true;
+
+      lights.forEach((light, index) => {
+        setTimeout(() => {
+          light.classList.add('on');
+        }, index * 800);
+      });
+
+      const totalLightingTime = lights.length * 800;
+      const randomDelay = Math.random() * 2000 + 1000;
+
+      setTimeout(() => {
+        resetLights();
+        message.textContent = "VIA!";
+        reactionStart = performance.now();
+        timerInterval = setInterval(updateTimer, 10);
+        gameStarted = true;
+      }, totalLightingTime + randomDelay);
+    }
+
+    document.body.addEventListener('click', (event) => {
+
+      if (event.target === startButton) {
+        return;
+      }
+
+      if (!gameStarted || clicked) {
+        alert("FALSA PARTENZA! - Hai cliccato troppo presto...");
+        return;
+      }
+
+      const reactionTime = performance.now() - reactionStart;
+      clearInterval(timerInterval);
+      timerDisplay.textContent = formatTime(reactionTime);
+      message.textContent = `Tempo di Reazione: ${reactionTime.toFixed(0)} ms`;
+
+      currentTimes.push(reactionTime);
+      updateUserList();
+
+      clicked = true;
+      gameStarted = false;
+      startButton.disabled = false;
+
+      if (currentTimes.length === 3) {
+        setTimeout(() => {
+          alert(`Hai completato 3 tentativi, ${userName}! Ora tocca a un altro giocatore.`);
+          players.push({ name: userName, times: currentTimes });
+          userName = '';
+          currentTimes = [];
+          updateUserList();
+        }, 500);
+      }
+    });
+
+    startButton.addEventListener('click', startGame);
+  </script>
+</body>
+</html>
