@@ -73,7 +73,7 @@
   </style>
 </head>
 <body>
-  <div id="user-info"></div>
+  <div id="user-info"></div> <!-- Mostra i tempi dei giocatori -->
 
   <div class="lights">
     <div class="light" id="l1"></div>
@@ -83,11 +83,12 @@
     <div class="light" id="l5"></div>
   </div>
 
-  <div id="timer">00.000</div>
-  <div id="message">Clicca "START" per iniziare</div>
-  <button id="start">START</button>
+  <div id="timer">00.000</div> <!-- Mostra il tempo di reazione -->
+  <div id="message">Clicca "START" per iniziare</div> <!-- Messaggi di stato -->
+  <button id="start">START</button> <!-- Pulsante per iniziare -->
 
   <script>
+    //Seleziona gli elementi delle luci
     const lights = [
       document.getElementById('l1'),
       document.getElementById('l2'),
@@ -95,126 +96,127 @@
       document.getElementById('l4'),
       document.getElementById('l5')
     ];
-    const timerDisplay = document.getElementById('timer');
-    const message = document.getElementById('message');
-    const startButton = document.getElementById('start');
-    const userInfo = document.getElementById('user-info');
+    const timerDisplay = document.getElementById('timer'); //Elemento che mostra il timer
+    const message = document.getElementById('message'); //Elemento per i messaggi
+    const startButton = document.getElementById('start'); //Pulsante START
+    const userInfo = document.getElementById('user-info'); //Info giocatori
 
-    let userName = '';
-    let currentTimes = [];
-    let reactionStart = 0;
-    let timerInterval = null;
-    let gameStarted = false;
-    let clicked = false;
+    let userName = ''; //Nome del giocatore corrente
+    let currentTimes = []; //Tempi del giocatore corrente
+    let reactionStart = 0; //Momento in cui parte la reazione
+    let timerInterval = null; //Intervallo per aggiornare il timer
+    let gameStarted = false; //Indica se il gioco è in corso
+    let clicked = false; //Indica se il giocatore ha già cliccato
 
-    const players = [];
+    const players = []; //Array con tutti i giocatori e i loro tempi
 
     function askUserName() {
-      userName = prompt("Inserisci il tuo nome:");
-      currentTimes = [];
-      updateUserList();
+      userName = prompt("Inserisci il tuo nome:"); //Chiede il nome
+      currentTimes = []; //Resetta i tempi
+      updateUserList(); //Aggiorna la lista dei giocatori
     }
 
     function resetLights() {
-      lights.forEach(light => light.classList.remove('on'));
+      lights.forEach(light => light.classList.remove('on')); //Spegne tutte le luci
     }
 
     function formatTime(ms) {
-      return (ms / 1000).toFixed(3).padStart(6, '0');
+      return (ms / 1000).toFixed(3).padStart(6, '0'); //Formatta il tempo in secondi con 3 decimali
     }
 
     function updateTimer() {
-      const now = performance.now();
-      const elapsed = now - reactionStart;
-      timerDisplay.textContent = formatTime(elapsed);
+      const now = performance.now(); //Tempo attuale
+      const elapsed = now - reactionStart; //Tempo trascorso dalla partenza
+      timerDisplay.textContent = formatTime(elapsed); //Aggiorna il timer
     }
 
     function updateUserList() {
       let html = '';
       players.forEach(player => {
-        const bestTime = Math.min(...player.times);
+        const bestTime = Math.min(...player.times); //Miglior tempo del giocatore
         const timesHTML = player.times.map(t =>
           `<span style="font-weight:${t === bestTime ? 'bold' : 'normal'}">${formatTime(t)}</span>`
         ).join(' | ');
-        html += `<div>${player.name} - ${timesHTML}</div>`;
+        html += `<div>${player.name} - ${timesHTML}</div>`; //Mostra nome e tempi
       });
 
       if (userName && currentTimes.length > 0) {
-        const bestCurrent = Math.min(...currentTimes);
+        const bestCurrent = Math.min(...currentTimes); //Miglior tempo attuale
         const currentHTML = currentTimes.map(t =>
           `<span style="font-weight:${t === bestCurrent ? 'bold' : 'normal'}">${formatTime(t)}</span>`
         ).join(' | ');
-        html += `<div>${userName} - ${currentHTML}</div>`;
+        html += `<div>${userName} - ${currentHTML}</div>`; //Mostra tempi del giocatore corrente
       }
 
-      userInfo.innerHTML = html;
+      userInfo.innerHTML = html; //Aggiorna la visualizzazione
     }
 
     function startGame() {
       if (!userName) {
-        askUserName();
+        askUserName(); //Se non c'è nome, lo chiede
       }
 
-      resetLights();
-      timerDisplay.textContent = "00.000";
-      message.textContent = "Preparati...";
-      clicked = false;
-      gameStarted = false;
-      startButton.disabled = true;
+      resetLights(); //Spegne le luci
+      timerDisplay.textContent = "00.000"; //Resetta il timer
+      message.textContent = "Preparati..."; //Messaggio di preparazione
+      clicked = false; //Resetta il click
+      gameStarted = false; //Il gioco non è ancora partito
+      startButton.disabled = true; //Disabilita il pulsante START
 
+      //Accende le luci una alla volta
       lights.forEach((light, index) => {
         setTimeout(() => {
           light.classList.add('on');
-        }, index * 800);
+        }, index * 800); //Ogni 800ms si accende una luce
       });
 
-      const totalLightingTime = lights.length * 800;
-      const randomDelay = Math.random() * 2000 + 1000;
+      const totalLightingTime = lights.length * 800; //Tempo totale per accendere tutte le luci
+      const randomDelay = Math.random() * 2000 + 1000; //Ritardo casuale tra 1 e 3 secondi
 
       setTimeout(() => {
-        resetLights();
-        message.textContent = "VIA!";
-        reactionStart = performance.now();
-        timerInterval = setInterval(updateTimer, 10);
-        gameStarted = true;
-      }, totalLightingTime + randomDelay);
+        resetLights(); //Spegne tutte le luci
+        message.textContent = "VIA!"; //Messaggio di via
+        reactionStart = performance.now(); //Salva il momento di partenza
+        timerInterval = setInterval(updateTimer, 10); //Aggiorna il timer ogni 10ms
+        gameStarted = true; //Il gioco è partito
+      }, totalLightingTime + randomDelay); //Dopo tutte le luci e il ritardo
     }
 
     document.body.addEventListener('click', (event) => {
 
       if (event.target === startButton) {
-        return;
+        return; //Ignora il click sul pulsante START
       }
 
       if (!gameStarted || clicked) {
-        alert("FALSA PARTENZA! - Hai cliccato troppo presto...");
+        alert("FALSA PARTENZA! - Hai cliccato troppo presto..."); //Se clicchi troppo presto
         return;
       }
 
-      const reactionTime = performance.now() - reactionStart;
-      clearInterval(timerInterval);
-      timerDisplay.textContent = formatTime(reactionTime);
-      message.textContent = `Tempo di Reazione: ${reactionTime.toFixed(0)} ms`;
+      const reactionTime = performance.now() - reactionStart; //Calcola il tempo di reazione
+      clearInterval(timerInterval); //Ferma il timer
+      timerDisplay.textContent = formatTime(reactionTime); //Mostra il tempo
+      message.textContent = `Tempo di Reazione: ${reactionTime.toFixed(0)} ms`; //Messaggio con il tempo
 
-      currentTimes.push(reactionTime);
-      updateUserList();
+      currentTimes.push(reactionTime); //Salva il tempo
+      updateUserList(); //Aggiorna la lista
 
-      clicked = true;
-      gameStarted = false;
-      startButton.disabled = false;
+      clicked = true; //Segna che hai già cliccato
+      gameStarted = false; //Il gioco è finito
+      startButton.disabled = false; //Riabilita il pulsante START
 
-      if (currentTimes.length === 3) {
+      if (currentTimes.length === 3) { //Dopo 3 tentativi
         setTimeout(() => {
           alert(`Hai completato 3 tentativi, ${userName}! Ora tocca a un altro giocatore.`);
-          players.push({ name: userName, times: currentTimes });
-          userName = '';
-          currentTimes = [];
-          updateUserList();
+          players.push({ name: userName, times: currentTimes }); //Salva il giocatore
+          userName = ''; //Resetta il nome
+          currentTimes = []; //Resetta i tempi
+          updateUserList(); //Aggiorna la lista
         }, 500);
       }
     });
 
-    startButton.addEventListener('click', startGame);
+    startButton.addEventListener('click', startGame); //Avvia il gioco al click su START
   </script>
 </body>
 </html>
