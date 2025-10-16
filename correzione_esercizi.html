@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulatore Scheduling CPU</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #3498db;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    textarea, select, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    input[type="number"] {
+      width: 100px;
+    }
+
+    .btn {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 15px 5px 5px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .output {
+      margin-top: 20px;
+    }
+
+    .stats {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      table, th, td {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Simulatore Scheduling CPU</h1>
+
+    <label for="taskInput">Inserisci Task in JSON:</label>
+    <textarea id="taskInput" rows="8">
+{
+  "tasks": [
+    { "id": "P1", "arrival_time": 0, "burst_time": 5 },
+    { "id": "P2", "arrival_time": 1, "burst_time": 3 },
+    { "id": "P3", "arrival_time": 2, "burst_time": 8 }
+  ],
+  "algorithm": "FCFS",
+  "quantum": 2
+}
+    </textarea>
+
+    <label for="algorithm">Algoritmo:</label>
+    <select id="algorithm">
+      <option value="FCFS">FCFS</option>
+      <option value="SJF">SJF</option>
+      <option value="RR">Round Robin</option>
+    </select>
+
+    <label for="quantum">Quantum (per RR):</label>
+    <input type="number" id="quantum" value="2" min="1" />
+
+    <div>
+      <button class="btn" onclick="simulate()">Simula</button>
+      <button class="btn" onclick="randomTasks()">Genera Task Casuali</button>
+    </div>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function randomTasks(n = 5) {
+      const tasks = [];
+      for (let i = 0; i < n; i++) {
+        tasks.push({
+          id: "P" + (i + 1),
+          arrival_time: Math.floor(Math.random() * 10),
+          burst_time: Math.floor(Math.random() * 10) + 1
+        });
+      }
+      document.getElementById("taskInput").value = JSON.stringify({
+        tasks: tasks,
+        algorithm: "FCFS",
+        quantum: 2
+      }, null, 2);
+    }
+
+    function simulate() {
+      const input = JSON.parse(document.getElementById("taskInput").value);
+      const tasks = input.tasks.map(t => ({ ...t }));
+      const algo = document.getElementById("algorithm").value;
+      const quantum = parseInt(document.getElementById("quantum").value);
+      let result;
+
+      switch (algo) {
+        case "FCFS": result = fcfs(tasks); break;
+        case "SJF": result = sjf(tasks); break;
+        case "RR": result = roundRobin(tasks, quantum); break;
+        default: alert("Algoritmo non valido."); return;
+      }
+
+      showResult(result, algo);
+    }
+
+    function fcfs(tasks) {
+      tasks.sort((a, b) => a.arrival_time - b.arrival_time);
+      let time = 0;
+      return tasks.map(task => {
+        const start = Math.max(time, task.arrival_time);
+        const finish = start + task.burst_time;
+        const res = {
+          ...task,
+          start_time: start,
+          finish_time: finish,
+          waiting_time: start - task.arrival_time,
+          turnaround_time: finish - task.arrival_time
+        };
+        time = finish;
+        return res;
+      });
+    }
+
+    function sjf(tasks) {
+      let time = 0;
+      const completed = [];
+      const result = [];
+
+      while (completed.length < tasks.length) {
+        const available = tasks.filter(t => t.arrival_time <= time && !completed.includes(t));
+        if (available.length === 0) {
+          time++;
+          continue;
+        }
+        const current = available.reduce((a, b) => a.burst_time < b.burst_time ? a : b);
+        const start = time;
+        const finish = start + current.burst_time;
+        result.push({
+          ...current,
+          start_time: start,
+          finish_time: finish,
+          waiting_time: start - current.arrival_time,
+          turnaround_time: finish - current.arrival_time
+        });
+        completed.push(current);
+        time = finish;
+      }
+      return result;
+    }
+
+    function roundRobin(tasks, quantum) {
+      tasks.sort((a, b) => a.arrival_time - b.arrival_time);
+      const queue = [];
+      const remaining = {};
+      const arrived = {};
+      const waiting = {};
+      const result = {};
+      const log = [];
+      tasks.forEach(t => {
+        remaining[t.id] = t.burst_time;
+        arrived[t.id] = t;
+        waiting[t.id] = 0;
+      });
+
+      let time = 0;
+      let i = 0;
+
+      while (i < tasks.length || queue.length > 0) {
+        while (i < tasks.length && tasks[i].arrival_time <= time) {
+          queue.push(tasks[i]);
+          i++;
+        }
+
+        if (queue.length === 0) {
+          time++;
+          continue;
+        }
+
+        const current = queue.shift();
+        const exec = Math.min(quantum, remaining[current.id]);
+        time += exec;
+        remaining[current.id] -= exec;
+
+        log.push({
+          id: current.id,
+          executed_time: exec,
+          finish_time: remaining[current.id] === 0 ? time : null
+        });
+
+        queue.forEach(t => waiting[t.id] += exec);
+
+        if (remaining[current.id] > 0) {
+          while (i < tasks.length && tasks[i].arrival_time <= time) {
+            queue.push(tasks[i]);
+            i++;
+          }
+          queue.push(current);
+        } else {
+          result[current.id] = {
+            ...current,
+            start_time: current.arrival_time,
+            finish_time: time,
+            waiting_time: waiting[current.id],
+            turnaround_time: time - current.arrival_time
+          };
+        }
+      }
+
+      return Object.values(result);
+    }
+
+    function showResult(result, algo) {
+      const output = document.getElementById("output");
+      if (!result || result.length === 0) {
+        output.innerHTML = "<p>Nessun risultato.</p>";
+        return;
+      }
+
+      let html = `<h2>Risultati - ${algo}</h2>`;
+      html += `<table><thead><tr>
+        <th>Processo</th><th>Start</th><th>Finish</th>
+        <th>Attesa</th><th>Turnaround</th></tr></thead><tbody>`;
+
+      let totalWait = 0;
+      let totalTurn = 0;
+
+      result.forEach(p => {
+        html += `<tr><td>${p.id}</td><td>${p.start_time}</td><td>${p.finish_time}</td>
+          <td>${p.waiting_time}</td><td>${p.turnaround_time}</td></tr>`;
+        totalWait += p.waiting_time;
+        totalTurn += p.turnaround_time;
+      });
+
+      const n = result.length;
+      html += `</tbody></table>`;
+      html += `<div class="stats">
+        <p><strong>Tempo Medio di Attesa:</strong> ${(totalWait / n).toFixed(2)}</p>
+        <p><strong>Tempo Medio di Turnaround:</strong> ${(totalTurn / n).toFixed(2)}</p>
+      </div>`;
+
+      output.innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>
